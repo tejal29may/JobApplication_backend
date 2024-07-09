@@ -6,7 +6,7 @@ app.use(express.json())
 const jobRouter = require("./Routes/jobs")
 
 // mongodb connection
-mongoose.connect("mongodb://localhost:27017/jobapp")
+mongoose.connect("mongodb+srv://tejalmohod5:ZcPAFamk8CI5ZTyr@jobapplicationbackend.yobblxb.mongodb.net/ ")
     .then(() => {
         console.log("connection successfull");
     })

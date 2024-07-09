@@ -4,20 +4,25 @@ const jobModel = require("../Model/jobs")
 const createJob = async (req, res) => {
 
     // this is to save the data in database
+    try {
+        const jobobj = req.body;
+        const newjob = new jobModel(jobobj);
+        await newjob.save();
 
-    const jobobj = req.body;
-    const newjob = new jobModel(jobobj);
-    await newjob.save();
+        console.log(req.body);
+        res.json({
+            success: true,
+            messag: "jobs crrated successfully ! "
+        })
+    } catch (err) {
+        res.json("something went wrong,please try after some time", err)
+    }
 
-    console.log(req.body);
-    res.json({
-        success: true,
-        messag: "jobs crrated successfully ! "
-    })
 }
 
 const listJob = async (req, res) => {
-    const minsalary = req.query.minsalary;
+    try{
+        const minsalary = req.query.minsalary;
 
     // listing the jobs
     const jobLists = await jobModel.find({
@@ -32,12 +37,18 @@ const listJob = async (req, res) => {
         messag: "lists of jobs are here ",
         results: jobLists
     })
+    }catch(err){
+        res.json("something went wrong",err)
+    }
 }
 
 const editJob = async (req, res) => {
+    try{
+
+    
     const jobId = req.params.id;
     console.log(jobId);
-    await jobModel.findByIdAndUpdate(jobId,req.body)
+    await jobModel.findByIdAndUpdate(jobId, req.body)
     // const findobj = {
     //     title: "proggrammer"
     // }
@@ -52,10 +63,13 @@ const editJob = async (req, res) => {
         success: true,
         messag: "job updated successfully ! "
     })
+}catch(err){
+    res.json("something went wrong",err)
+}
 }
 
-const deleteJob =async (req, res) => {
-    const jobId=req.params.id;
+const deleteJob = async (req, res) => {
+    const jobId = req.params.id;
     console.log(jobId);
     await jobModel.findByIdAndDelete(jobId);
     // jobModel.findOneAndDelete();
