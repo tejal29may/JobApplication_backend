@@ -16,6 +16,6 @@ mongoose.connect("mongodb+srv://tejalmohod5:ZcPAFamk8CI5ZTyr@jobapplicationbacke
 
 app.use(jobRouter)
 
-app.listen(8080, () => {
+app.listen(10000, () => {
     console.log("node app is running on port 8080");
 })
